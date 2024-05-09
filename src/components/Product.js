@@ -1,6 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
-import clsx from "clsx";
+import React, { useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -14,7 +12,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AddShoppingCart } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core';
 import accounting from 'accounting';
-import products from '../product-data';
+import { actionTypes } from '../reducer';
+import { useStateValue } from '../stateProvider';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,12 +46,30 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Product({product: {id, name, productType, image, price, rating, description}}) {
+export default function Product({
+    product: {id, name, productType, image, price, rating, description},
+}) {
     const classes = useStyles();
+    const [{basket}, dispatch] = useStateValue();
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const addToBasket = () => {
+        dispatch({
+            type: actionTypes.ADD_TO_BASKET,
+            item: {
+                id,
+                name,
+                productType,
+                image,
+                price,
+                rating,
+                description,
+            }
+        })
+    }
 
     return (
         <Card className={classes.root}>
@@ -76,7 +93,7 @@ export default function Product({product: {id, name, productType, image, price, 
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to cart">
+                <IconButton aria-label="add to cart" onClick={addToBasket}>
                     <AddShoppingCart fontSize='large'/>
                 </IconButton>
                 {Array(rating)
