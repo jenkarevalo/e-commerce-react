@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '7rem',
   },
   appBar: {
-    backgroundColor: 'red',
+    backgroundColor: '#eee',
     boxShadow: 'none,'
   },
   grow: {
@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     marginleft: theme.spacing(2),
   },
   image: {
-    marginRight: '10px',
-    height: '2rem',
+    marginRight: '20px',
+    height: '4rem',
   },
 }));
 
@@ -55,7 +55,7 @@ const Navbar = () => {
   }; 
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <AppBar position='fixed' className={classes.appBar}>
         <Toolbar>
           <RouteLink to='/'>
@@ -66,12 +66,12 @@ const Navbar = () => {
 
           <div className={classes.grow} />
           <Typography variant='h6' color='textPrimary' component='p'>
-            Hello {user ? user.email : 'Guest'}
+            Bienvenido {user ? user.email : 'querido cliente'}
           </Typography>
           <div className={classes.button}>
             <RouteLink to='/signin'>
               <Button variant='outlined' onClick={handleAuth}>
-                <strong>{user ? 'Sign Out' : 'Sign In'}</strong>
+                <strong>{user ? 'Cerrar Sesión' : 'Iniciar Sesión'}</strong>
               </Button>
             </RouteLink>
 

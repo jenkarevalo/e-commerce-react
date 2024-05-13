@@ -1,128 +1,41 @@
-import * as React from 'react';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { useForm, FormProvider } from 'react-hook-form';
+import AddressInput from './AddressInput';
+import { Link } from 'react-router-dom';
+import { useStateValue } from '../../stateProvider';
+import { actionTypes } from '../../reducer';
 
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import Grid from '@mui/material/Grid';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled } from '@mui/system';
-
-const FormGrid = styled(Grid)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-export default function AddressForm() {
-  return (
-    <Grid container spacing={3}>
-      <FormGrid item xs={12} md={6}>
-        <FormLabel htmlFor="first-name" required>
-          First name
-        </FormLabel>
-        <OutlinedInput
-          id="first-name"
-          name="first-name"
-          type="name"
-          placeholder="John"
-          autoComplete="first name"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={12} md={6}>
-        <FormLabel htmlFor="last-name" required>
-          Last name
-        </FormLabel>
-        <OutlinedInput
-          id="last-name"
-          name="last-name"
-          type="last-name"
-          placeholder="Snow"
-          autoComplete="last name"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={12}>
-        <FormLabel htmlFor="address1" required>
-          Address line 1
-        </FormLabel>
-        <OutlinedInput
-          id="address1"
-          name="address1"
-          type="address1"
-          placeholder="Street name and number"
-          autoComplete="shipping address-line1"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={12}>
-        <FormLabel htmlFor="address2">Address line 2</FormLabel>
-        <OutlinedInput
-          id="address2"
-          name="address2"
-          type="address2"
-          placeholder="Apartment, suite, unit, etc. (optional)"
-          autoComplete="shipping address-line2"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={6}>
-        <FormLabel htmlFor="city" required>
-          City
-        </FormLabel>
-        <OutlinedInput
-          id="city"
-          name="city"
-          type="city"
-          placeholder="New York"
-          autoComplete="City"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={6}>
-        <FormLabel htmlFor="state" required>
-          State
-        </FormLabel>
-        <OutlinedInput
-          id="state"
-          name="state"
-          type="state"
-          placeholder="NY"
-          autoComplete="State"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={6}>
-        <FormLabel htmlFor="zip" required>
-          Zip / Postal code
-        </FormLabel>
-        <OutlinedInput
-          id="zip"
-          name="zip"
-          type="zip"
-          placeholder="12345"
-          autoComplete="shipping postal-code"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={6}>
-        <FormLabel htmlFor="country" required>
-          Country
-        </FormLabel>
-        <OutlinedInput
-          id="country"
-          name="country"
-          type="country"
-          placeholder="United States"
-          autoComplete="shipping country"
-          required
-        />
-      </FormGrid>
-      <FormGrid item xs={12}>
-        <FormControlLabel
-          control={<Checkbox name="saveAddress" value="yes" />}
-          label="Use this address for payment details"
-        />
-      </FormGrid>
-    </Grid>
-  );
+const AddressForm = () => {
+    const methods = useForm();
+    const [{ shippingData }, dispatch]= useStateValue();
+    return (
+        <>
+            <Typography variant='h6' gutterBottom>
+                Datos de Envio
+            </Typography>
+            <FormProvider {...methods}>
+                <form onSubmit={methods.handleSubmit(data => {
+                    dispatch({
+                        type: actionTypes.SET_SHIPPINGDATA,
+                        shippingData: data,
+                    });
+                })}>
+                    <Grid container spacing={3}>
+                        <AddressInput required name='firstName' label=' Primer Nombre' />
+                        <AddressInput required name='lasttName' label=' Primer Apellido' />
+                        <AddressInput required name='address1' label=' Dirección' />
+                        <AddressInput required name='email' label=' Correo Electronico' />
+                        <AddressInput required name='city' label=' Ciudad' />
+                        <AddressInput required name='postCode' label=' Codigo Postal' />
+                    </Grid>
+                    <div style={{display:'flex', justifyContent:'space-between', marginTop: '2rem'}}>
+                        <Button component={Link} to='/checkout-page'>Volver a la pagina anterior</Button>
+                        <Button type='submit' variant='contained' color='primary'>Siguiente</Button>
+                    </div>
+                </form>
+            </FormProvider>
+        </>
+    )
 }
+
+export default AddressForm

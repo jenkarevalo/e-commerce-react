@@ -26,7 +26,7 @@ const Total = () => {
             <h5>Total items: {basket?.length}</h5>
             <h5>{accounting.formatMoney(getBasketTotal(basket))}</h5>
             <RouteLink to='/checkout'>
-            <Button className={classes.button} variant='contained' color='secondary'>Check out</Button>
+            <Button className={classes.button} variant='contained' color='secondary'>Comprar Ahora</Button>
             </RouteLink>
         </div>
     )

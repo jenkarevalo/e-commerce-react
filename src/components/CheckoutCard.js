@@ -58,7 +58,7 @@ export default function CheckoutCard({
                     </Typography>
                 }
                 title={name}
-                subheader="in Stock"
+                subheader="en Stock"
             />
             <CardMedia className={classes.media} image={image} title={name} />
             <CardActions disableSpacing className={classes.cardActions}>

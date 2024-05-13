@@ -35,7 +35,7 @@ const CheckoutPage = () => {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Typography align="center" gutterBottom variant="h4" >
-                        Shopping Cart
+                        CARRITO DE COMPRAS
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={8} md={9} container spacing={2}>

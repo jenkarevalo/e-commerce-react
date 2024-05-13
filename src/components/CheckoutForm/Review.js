@@ -53,7 +53,7 @@ export default function Review() {
         </div>
         <div>
           <Typography variant="subtitle2" gutterBottom>
-            Payment details
+          Detalles del Pago
           </Typography>
           <Grid container>
             {payments.map((payment) => (
